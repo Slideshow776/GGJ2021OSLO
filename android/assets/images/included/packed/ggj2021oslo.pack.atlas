@@ -1,19 +1,26 @@
 
 ggj2021oslo.pack.png
-size: 1024, 128
+size: 512, 128
 format: RGBA8888
 filter: Nearest, Nearest
 repeat: none
+bed
+  rotate: false
+  xy: 162, 77
+  size: 64, 38
+  orig: 64, 38
+  offset: 0, 0
+  index: -1
 button
   rotate: false
-  xy: 804, 37
+  xy: 2, 37
   size: 78, 78
   orig: 78, 78
   offset: 0, 0
   index: -1
 button-pressed
   rotate: false
-  xy: 884, 37
+  xy: 82, 37
   size: 78, 78
   orig: 78, 78
   offset: 0, 0
@@ -21,8 +28,8 @@ button-pressed
 ground
   rotate: false
   xy: 2, 15
-  size: 800, 100
-  orig: 800, 100
+  size: 100, 20
+  orig: 100, 20
   offset: 0, 0
   index: -1
 pile
@@ -34,21 +41,84 @@ pile
   index: -1
 player1
   rotate: false
-  xy: 964, 77
+  xy: 228, 77
   size: 22, 38
   orig: 22, 38
   offset: 0, 0
   index: -1
 player2
   rotate: false
-  xy: 964, 37
+  xy: 205, 37
   size: 22, 38
   orig: 22, 38
   offset: 0, 0
   index: -1
+player_shirt1
+  rotate: false
+  xy: 252, 77
+  size: 22, 38
+  orig: 22, 38
+  offset: 0, 0
+  index: -1
+player_shirt2
+  rotate: false
+  xy: 229, 37
+  size: 22, 38
+  orig: 22, 38
+  offset: 0, 0
+  index: -1
+player_sock1
+  rotate: false
+  xy: 276, 77
+  size: 22, 38
+  orig: 22, 38
+  offset: 0, 0
+  index: -1
+player_sock2
+  rotate: false
+  xy: 253, 37
+  size: 22, 38
+  orig: 22, 38
+  offset: 0, 0
+  index: -1
+player_tie1
+  rotate: false
+  xy: 300, 77
+  size: 22, 38
+  orig: 22, 38
+  offset: 0, 0
+  index: -1
+player_tie2
+  rotate: false
+  xy: 277, 37
+  size: 22, 38
+  orig: 22, 38
+  offset: 0, 0
+  index: -1
+shirt
+  rotate: false
+  xy: 162, 23
+  size: 41, 52
+  orig: 41, 52
+  offset: 0, 0
+  index: -1
+sock
+  rotate: false
+  xy: 104, 18
+  size: 17, 17
+  orig: 17, 17
+  offset: 0, 0
+  index: -1
+tie
+  rotate: false
+  xy: 324, 87
+  size: 10, 28
+  orig: 10, 28
+  offset: 0, 0
+  index: -1
 whitePixel
   rotate: false
-  xy: 804, 34
+  xy: 205, 34
   size: 1, 1
   orig: 1, 1
   offset: 0, 0

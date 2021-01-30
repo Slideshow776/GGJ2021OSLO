@@ -37,6 +37,7 @@ open class BaseActor(x: Float, y: Float, s: Stage) : Group() {
 
     var isFacingRight = true
     var pause = false
+    var moving = false
 
 
     init {
@@ -44,7 +45,7 @@ open class BaseActor(x: Float, y: Float, s: Stage) : Group() {
         this.y = y
         s.addActor(this)
         animation = null
-        debug = true
+        debug = false
     }
 
     override fun setSize(width: Float, height: Float) {
@@ -53,6 +54,8 @@ open class BaseActor(x: Float, y: Float, s: Stage) : Group() {
     }
 
     override fun act(dt: Float) {
+        // if (!moving) return
+
         if (!pause)
             super.act(dt)
 

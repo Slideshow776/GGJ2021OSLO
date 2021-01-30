@@ -42,10 +42,24 @@ abstract class BaseGame() : Game(), AssetErrorListener {
         var textButtonStyle: TextButtonStyle? = null
         var textureAtlas: TextureAtlas? = null
         var skin: Skin? = null
+        var alarm1Sound: Sound? = null
+        var jump1Sound: Sound? = null
+        var jump2Sound: Sound? = null
+        var jump3Sound: Sound? = null
+        var gettingReadyRush1Sound: Sound? = null
+        var gettingReadyRush2Sound: Sound? = null
+        var gettingReadyRush3Sound: Sound? = null
+        var feetFast1Music: Music? = null
+        var socksFast1Music: Music? = null
+        var tiptapFeetMusic: Music? = null
+        var levelMusic1: Music? = null
 
         // game state
         var prefs: Preferences? = null
+        var highScore: Int = 0
         var speed = 30f
+        var soundVolume = .5f
+        var musicVolume = 1f
 
         fun setActiveScreen(s: BaseScreen) {
             game?.setScreen(s)
@@ -56,26 +70,24 @@ abstract class BaseGame() : Game(), AssetErrorListener {
         Gdx.input.inputProcessor = InputMultiplexer() // discrete input
 
         // global variables
+        GameUtils.loadGameState()
 
         // asset manager
         assetManager = AssetManager()
         assetManager.setErrorListener(this)
         assetManager.load("images/included/packed/ggj2021oslo.pack.atlas", TextureAtlas::class.java)
-        /*assetManager.load("audio/music/AlexBeroza_-_Drive.mp3", Music::class.java)
-        assetManager.load("audio/music/bensound-extremeaction.mp3", Music::class.java)
-        assetManager.load("audio/music/bensound-moose.mp3", Music::class.java)
-        assetManager.load("audio/sound/hit.wav", Sound::class.java)
-        assetManager.load("audio/sound/heartInit.wav", Sound::class.java)
-        assetManager.load("audio/sound/heartLoose.wav", Sound::class.java)
-        assetManager.load("audio/sound/gameOver.wav", Sound::class.java)
-        assetManager.load("audio/sound/newHighScore.wav", Sound::class.java)
-        assetManager.load("audio/sound/flogger0.wav", Sound::class.java)
-        assetManager.load("audio/sound/cane0.wav", Sound::class.java)
-        assetManager.load("audio/sound/paddle0.wav", Sound::class.java)
-        assetManager.load("audio/sound/swoosh0.wav", Sound::class.java)
-        assetManager.load("audio/sound/93100__cgeffex__whip-crack-01.wav", Sound::class.java)
-        assetManager.load("audio/sound/Powerup5.bfxrsound.wav", Sound::class.java)
-        assetManager.load("audio/sound/click1.wav", Sound::class.java)*/
+        assetManager.load("audio/sound/Alarm1.mp3", Sound::class.java)
+        assetManager.load("audio/sound/Jump_Grunt1.mp3", Sound::class.java)
+        assetManager.load("audio/sound/Jump_Grunt2.mp3", Sound::class.java)
+        assetManager.load("audio/sound/Jump_Grunt3.wav", Sound::class.java)
+        assetManager.load("audio/sound/Alarm1.mp3", Sound::class.java)
+        assetManager.load("audio/sound/Getting_Ready_Rush1.mp3", Sound::class.java)
+        assetManager.load("audio/sound/Getting_Ready_Rush2.mp3", Sound::class.java)
+        assetManager.load("audio/sound/Getting_Ready_Rush3.mp3", Sound::class.java)
+        assetManager.load("audio/sound/tiptap_feet_1.wav", Music::class.java)
+        assetManager.load("audio/music/FeetFast1.wav", Music::class.java)
+        assetManager.load("audio/music/SocksFast1.wav", Music::class.java)
+        assetManager.load("audio/music/Wheres_my_video_call_Music_test1.mp3", Music::class.java)
 
         assetManager.load("skins/default/uiskin.json", Skin::class.java)
 
@@ -92,21 +104,17 @@ abstract class BaseGame() : Game(), AssetErrorListener {
             assetManager.get("images/included/packed/ggj2021oslo.pack.atlas") // all images are found in this global static variable
 
         // audio
-        /* levelMusic1 = assetManager.get("audio/music/AlexBeroza_-_Drive.mp3", Music::class.java)
-         levelMusic2 = assetManager.get("audio/music/bensound-extremeaction.mp3", Music::class.java)
-         levelMusic3 = assetManager.get("audio/music/bensound-moose.mp3", Music::class.java)
-         hit1Sound = assetManager.get("audio/sound/hit.wav", Sound::class.java)
-         heartInitSound = assetManager.get("audio/sound/heartInit.wav", Sound::class.java)
-         heartLooseSound = assetManager.get("audio/sound/heartLoose.wav", Sound::class.java)
-         gameOverSound = assetManager.get("audio/sound/gameOver.wav", Sound::class.java)
-         newHighScoreSound = assetManager.get("audio/sound/newHighScore.wav", Sound::class.java)
-         floggerSound = assetManager.get("audio/sound/flogger0.wav", Sound::class.java)
-         caneSound = assetManager.get("audio/sound/cane0.wav", Sound::class.java)
-         paddleSound = assetManager.get("audio/sound/paddle0.wav", Sound::class.java)
-         swooshSound = assetManager.get("audio/sound/swoosh0.wav", Sound::class.java)
-         whipCrackSound = assetManager.get("audio/sound/93100__cgeffex__whip-crack-01.wav", Sound::class.java)
-         titlePowerUpSound = assetManager.get("audio/sound/Powerup5.bfxrsound.wav", Sound::class.java)
-         clickSound = assetManager.get("audio/sound/click1.wav", Sound::class.java)*/
+        alarm1Sound = assetManager.get("audio/sound/Alarm1.mp3", Sound::class.java)
+        jump1Sound = assetManager.get("audio/sound/Jump_Grunt1.mp3", Sound::class.java)
+        jump2Sound = assetManager.get("audio/sound/Jump_Grunt2.mp3", Sound::class.java)
+        jump3Sound = assetManager.get("audio/sound/Jump_Grunt3.wav", Sound::class.java)
+        gettingReadyRush1Sound = assetManager.get("audio/sound/Getting_Ready_Rush1.mp3", Sound::class.java)
+        gettingReadyRush2Sound = assetManager.get("audio/sound/Getting_Ready_Rush2.mp3", Sound::class.java)
+        gettingReadyRush3Sound = assetManager.get("audio/sound/Getting_Ready_Rush3.mp3", Sound::class.java)
+        tiptapFeetMusic = assetManager.get("audio/sound/tiptap_feet_1.wav", Music::class.java)
+        feetFast1Music = assetManager.get("audio/music/FeetFast1.wav", Music::class.java)
+        socksFast1Music = assetManager.get("audio/music/SocksFast1.wav", Music::class.java)
+        levelMusic1 = assetManager.get("audio/music/Wheres_my_video_call_Music_test1.mp3", Music::class.java)
 
         // text files
         /*defaultShader = assetManager.get("shaders/default.vs", Text::class.java).getString()
@@ -151,6 +159,9 @@ abstract class BaseGame() : Game(), AssetErrorListener {
         textButtonStyle!!.down = NinePatchDrawable(buttonPatchDown)
         textButtonStyle!!.font = buttonCustomFont
         textButtonStyle!!.fontColor = Color.WHITE
+
+        // other
+        GameUtils.setMusicLoopingAndPlay(levelMusic1)
     }
 
     override fun dispose() {

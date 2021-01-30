@@ -19,13 +19,18 @@ class GameUtils {
         }
 
         fun saveGameState() {
-            // BaseGame.prefs!!.putInteger("mysteryKinksterScore", BaseGame.mysteryKinksterScore)
+            try {
+                BaseGame.prefs!!.putInteger("highScore", BaseGame.highScore)
+            } catch (error: Error) {
+                BaseGame.prefs!!.putInteger("highScore", Int.MAX_VALUE)
+            }
+
             BaseGame.prefs!!.flush()
         }
 
         fun loadGameState() {
-            BaseGame.prefs = Gdx.app.getPreferences("spankFuryGameState")
-            // BaseGame.highScore = BaseGame.prefs!!.getInteger("highScore")
+            BaseGame.prefs = Gdx.app.getPreferences("ggj2021oslo")
+            BaseGame.highScore = BaseGame.prefs!!.getInteger("highScore")
         }
 
         fun pulseLabel(label: Label, lowestAlpha: Float = .5f, duration: Float = .5f) {
@@ -57,10 +62,10 @@ class GameUtils {
             BaseGame.levelMusic3!!.volume = BaseGame.musicVolume*/
         }
 
-        private fun setMusicLoopingAndPlay(music: Music?) {
-            /*music!!.play()
-            music!!.volume = BaseGame.musicVolume
-            music!!.isLooping = true*/
+        fun setMusicLoopingAndPlay(music: Music?, volume: Float = BaseGame.musicVolume) {
+            music!!.play()
+            music!!.volume = volume
+            music!!.isLooping = true
         }
 
         fun enableActorsWithDelay(actor: Actor, delay: Float = .5f) {
