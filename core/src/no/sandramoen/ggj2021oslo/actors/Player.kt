@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Animation
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.scenes.scene2d.Stage
+import com.badlogic.gdx.scenes.scene2d.actions.Actions
 import com.badlogic.gdx.utils.Align
 import com.badlogic.gdx.utils.Array
 import no.sandramoen.ggj2021oslo.utils.BaseActor
@@ -27,6 +28,13 @@ class Player(x: Float, y: Float, s: Stage) : BaseActor(x, y, s) {
         setMaxSpeed(300f)
         setBoundaryRectangle()
         setOrigin(Align.center)
+
+        addAction(Actions.sequence(
+            Actions.delay(1f),
+            Actions.run { BaseGame.yawnSound!!.play(BaseGame.soundVolume) }
+        ))
+
+        moving = false
     }
 
     override fun act(dt: Float) {
@@ -41,12 +49,15 @@ class Player(x: Float, y: Float, s: Stage) : BaseActor(x, y, s) {
             isJumping = false
             y = 18f
 
-            if (!BaseGame.feetFast1Music!!.isPlaying && moving)
-                GameUtils.setMusicLoopingAndPlay(BaseGame.feetFast1Music) // , volume = BaseGame.soundVolume * .5f)
+            if (!BaseGame.feetFast1Music!!.isPlaying && moving && clothing == "none")
+                GameUtils.setMusicLoopingAndPlay(BaseGame.feetFast1Music, volume = BaseGame.soundVolume * .5f)
+            else if (!BaseGame.feetFast1Music!!.isPlaying && moving)
+                GameUtils.setMusicLoopingAndPlay(BaseGame.socksFast1Music) // , volume = BaseGame.soundVolume * .5f)
         }
     }
 
     fun jump(jumAmount: Float = 250f) {
+        moving = true
         if (!isJumping) {
             startSweating()
             BaseGame.feetFast1Music!!.stop()

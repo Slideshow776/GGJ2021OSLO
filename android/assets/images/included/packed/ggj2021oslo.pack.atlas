@@ -25,11 +25,25 @@ button-pressed
   orig: 78, 78
   offset: 0, 0
   index: -1
+computer
+  rotate: false
+  xy: 228, 85
+  size: 37, 30
+  orig: 37, 30
+  offset: 0, 0
+  index: -1
 ground
   rotate: false
   xy: 2, 15
   size: 100, 20
   orig: 100, 20
+  offset: 0, 0
+  index: -1
+newspile
+  rotate: false
+  xy: 267, 83
+  size: 32, 32
+  orig: 32, 32
   offset: 0, 0
   index: -1
 pile
@@ -41,56 +55,56 @@ pile
   index: -1
 player1
   rotate: false
-  xy: 228, 77
+  xy: 205, 37
   size: 22, 38
   orig: 22, 38
   offset: 0, 0
   index: -1
 player2
   rotate: false
-  xy: 205, 37
+  xy: 301, 77
   size: 22, 38
   orig: 22, 38
   offset: 0, 0
   index: -1
 player_shirt1
   rotate: false
-  xy: 252, 77
+  xy: 325, 77
   size: 22, 38
   orig: 22, 38
   offset: 0, 0
   index: -1
 player_shirt2
   rotate: false
-  xy: 229, 37
+  xy: 349, 77
   size: 22, 38
   orig: 22, 38
   offset: 0, 0
   index: -1
 player_sock1
   rotate: false
-  xy: 276, 77
+  xy: 373, 77
   size: 22, 38
   orig: 22, 38
   offset: 0, 0
   index: -1
 player_sock2
   rotate: false
-  xy: 253, 37
+  xy: 397, 77
   size: 22, 38
   orig: 22, 38
   offset: 0, 0
   index: -1
 player_tie1
   rotate: false
-  xy: 300, 77
+  xy: 421, 77
   size: 22, 38
   orig: 22, 38
   offset: 0, 0
   index: -1
 player_tie2
   rotate: false
-  xy: 277, 37
+  xy: 445, 77
   size: 22, 38
   orig: 22, 38
   offset: 0, 0
@@ -111,7 +125,7 @@ sock
   index: -1
 tie
   rotate: false
-  xy: 324, 87
+  xy: 469, 87
   size: 10, 28
   orig: 10, 28
   offset: 0, 0

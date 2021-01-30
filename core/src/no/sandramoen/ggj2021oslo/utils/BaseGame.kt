@@ -49,6 +49,11 @@ abstract class BaseGame() : Game(), AssetErrorListener {
         var gettingReadyRush1Sound: Sound? = null
         var gettingReadyRush2Sound: Sound? = null
         var gettingReadyRush3Sound: Sound? = null
+        var yawnSound: Sound? = null
+        var mouseClickSound: Sound? = null
+        var type1Sound: Sound? = null
+        var type2Sound: Sound? = null
+        var type3Sound: Sound? = null
         var feetFast1Music: Music? = null
         var socksFast1Music: Music? = null
         var tiptapFeetMusic: Music? = null
@@ -84,6 +89,11 @@ abstract class BaseGame() : Game(), AssetErrorListener {
         assetManager.load("audio/sound/Getting_Ready_Rush1.mp3", Sound::class.java)
         assetManager.load("audio/sound/Getting_Ready_Rush2.mp3", Sound::class.java)
         assetManager.load("audio/sound/Getting_Ready_Rush3.mp3", Sound::class.java)
+        assetManager.load("audio/sound/Yawn_1.wav", Sound::class.java)
+        assetManager.load("audio/sound/Mouse-Click.wav", Sound::class.java)
+        assetManager.load("audio/sound/Type_1.wav", Sound::class.java)
+        assetManager.load("audio/sound/Type_2.wav", Sound::class.java)
+        assetManager.load("audio/sound/Type_3.wav", Sound::class.java)
         assetManager.load("audio/sound/tiptap_feet_1.wav", Music::class.java)
         assetManager.load("audio/music/FeetFast1.wav", Music::class.java)
         assetManager.load("audio/music/SocksFast1.wav", Music::class.java)
@@ -111,6 +121,11 @@ abstract class BaseGame() : Game(), AssetErrorListener {
         gettingReadyRush1Sound = assetManager.get("audio/sound/Getting_Ready_Rush1.mp3", Sound::class.java)
         gettingReadyRush2Sound = assetManager.get("audio/sound/Getting_Ready_Rush2.mp3", Sound::class.java)
         gettingReadyRush3Sound = assetManager.get("audio/sound/Getting_Ready_Rush3.mp3", Sound::class.java)
+        yawnSound = assetManager.get("audio/sound/Yawn_1.wav", Sound::class.java)
+        mouseClickSound = assetManager.get("audio/sound/Mouse-Click.wav", Sound::class.java)
+        type1Sound = assetManager.get("audio/sound/Type_1.wav", Sound::class.java)
+        type2Sound = assetManager.get("audio/sound/Type_2.wav", Sound::class.java)
+        type3Sound = assetManager.get("audio/sound/Type_3.wav", Sound::class.java)
         tiptapFeetMusic = assetManager.get("audio/sound/tiptap_feet_1.wav", Music::class.java)
         feetFast1Music = assetManager.get("audio/music/FeetFast1.wav", Music::class.java)
         socksFast1Music = assetManager.get("audio/music/SocksFast1.wav", Music::class.java)

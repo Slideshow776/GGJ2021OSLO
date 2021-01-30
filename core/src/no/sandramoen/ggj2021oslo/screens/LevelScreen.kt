@@ -14,6 +14,7 @@ class LevelScreen : BaseScreen() {
 
     private lateinit var player: Player
     private lateinit var bed: Bed
+    private lateinit var computer: Computer
 
     private lateinit var ground1: Ground
     private lateinit var ground2: Ground
@@ -47,6 +48,7 @@ class LevelScreen : BaseScreen() {
         pile2 = Pile(170f, 18f, mainStage)
 
         bed = Bed(0f, 18f, mainStage)
+        computer = Computer(18f, 17f, mainStage)
         player = Player(15f, 30f, mainStage)
 
         // labels
@@ -140,6 +142,8 @@ class LevelScreen : BaseScreen() {
             BaseGame.highScore = score()
         GameUtils.saveGameState()
         setActorSpeed(0f)
+        player.moving = false
+        computer.fadeInAndSounds()
     }
 
     private fun setActorSpeed(newSpeed: Float) {
