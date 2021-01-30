@@ -1,2 +1,0 @@
-no/sandramoen/ggj2021oslo/client/HtmlLauncher.java
- no.sandramoen.ggj2021oslo.client.HtmlLauncher

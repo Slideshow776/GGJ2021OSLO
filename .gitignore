@@ -63,7 +63,7 @@ com_crashlytics_export_strings.xml
 /android/build/
 /core/build/
 /desktop/build/
-# /html/build/
+/html/build/
 /ios/build/
 
 /nbbuild/
@@ -77,7 +77,7 @@ com_crashlytics_export_strings.xml
 /android/dist/
 /core/dist/
 /desktop/dist/
-# /html/dist/
+/html/dist/
 /ios/dist/
 
 /nbdist/
@@ -95,11 +95,11 @@ nb-configuration.xml
 /local.properties
 .gradle/
 gradle-app.setting
-# /build/
+/build/
 /android/build/
 /core/build/
 /desktop/build/
-# /html/build/
+/html/build/
 /ios/build/
 
 ## OS Specific
