@@ -1,7 +1,7 @@
 package no.sandramoen.ggj2021oslo.screens
 
 import com.badlogic.gdx.Gdx
-import com.badlogic.gdx.Input
+import com.badlogic.gdx.Input.Keys
 import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
@@ -128,7 +128,7 @@ class LevelScreen : BaseScreen() {
     }
 
     override fun keyDown(keyCode: Int): Boolean {
-        if (keyCode == Input.Keys.SPACE) {
+        if (keyCode == Keys.SPACE) {
             if (!gameStarted) {
                 startGame()
                 return true
@@ -138,9 +138,23 @@ class LevelScreen : BaseScreen() {
             }
 
             if (!gameOver) player.jump()
-        } else if (keyCode == Input.Keys.ESCAPE)
+        } else if (keyCode == Keys.BACK || keyCode == Keys.ESCAPE)
             Gdx.app.exit()
         return true
+    }
+
+    // for android
+    override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
+        if (!gameStarted) {
+            startGame()
+            return true
+        } else if (gameOver && gameOverTime > .5f) { // added a small delay
+            println("loading new level")
+            BaseGame.setActiveScreen(LevelScreen())
+        }
+
+        if (!gameOver) player.jump()
+        return super.touchDown(screenX, screenY, pointer, button)
     }
 
     private fun score() = gameTime.toInt() * 100

@@ -1,5 +1,6 @@
 package no.sandramoen.ggj2021oslo.actors
 
+import com.badlogic.gdx.Application
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.glutils.ShaderProgram
 import com.badlogic.gdx.math.MathUtils
@@ -30,7 +31,7 @@ class PickUpItem(x: Float, y: Float, s: Stage, item: String) : BaseActor(x, y, s
         // shaders
         vertexShader = Gdx.files.internal("shaders/default.vs").readString()
         fragmentShader = Gdx.files.internal("shaders/glow-pulse.fs").readString()
-        shaderProgram = ShaderProgram(vertexShader, fragmentShader)
+        shaderProgram = ShaderProgram(vertexShader, fragmentShader) // hmm
 
         // to detect errors in GPU compilation
         if (!shaderProgram!!.isCompiled) println("Couldn't compile shader: " + shaderProgram!!.log)
@@ -44,7 +45,7 @@ class PickUpItem(x: Float, y: Float, s: Stage, item: String) : BaseActor(x, y, s
 
         applyPhysics(dt)
 
-        // if moved completely past left edge of screen:
+        // if moved completely past left edge of screen: d
         //   shift right, past other instance.
         if (x + width < 0) {
             moveBy(100f + width + MathUtils.random(-5f, 5f), 0f)
@@ -53,10 +54,12 @@ class PickUpItem(x: Float, y: Float, s: Stage, item: String) : BaseActor(x, y, s
     }
 
     override fun draw(batch: Batch, parentAlpha: Float) {
-        batch.shader = shaderProgram
-        shaderProgram!!.setUniformf("u_time", time)
-        shaderProgram!!.setUniformf("u_imageSize", Vector2(width, height))
-        shaderProgram!!.setUniformi("u_glowRadius", 7)
+        if (Gdx.app.type == Application.ApplicationType.Desktop) {
+            batch.shader = shaderProgram
+            shaderProgram!!.setUniformf("u_time", time)
+            shaderProgram!!.setUniformf("u_imageSize", Vector2(width, height))
+            shaderProgram!!.setUniformi("u_glowRadius", 7)
+        }
         super.draw(batch, parentAlpha)
         batch.shader = null
     }
