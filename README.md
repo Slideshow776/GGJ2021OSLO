@@ -6,5 +6,7 @@ This is a 2D endless runner.  You roll out of bed, in only your underpants, when
 * Sounds by: Peter Morrello
 * Music by: [Ragnhild Tronsmo Haugland](mailto:ragnhildth@gmail.com), [website](https://www.ombrasounds.com/ )
 
+[Click here to play!](https://github.com/Slideshow776/Korona-Kablam-i/tree/master/release)
+
 ![a picture of the game](https://user-images.githubusercontent.com/4059636/106383164-96392780-63c4-11eb-83e9-73981dcfd1e2.PNG)
 
