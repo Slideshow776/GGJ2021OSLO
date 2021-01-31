@@ -6,13 +6,10 @@ import no.sandramoen.ggj2021oslo.utils.BaseActor
 
 class Pile(x: Float, y: Float, s: Stage) : BaseActor(x, y, s) {
     init {
-        when (MathUtils.random(1, 2)) {
-            1 -> loadImage("pile")
-            2 -> loadImage("newspile")
-        }
+        setImage()
+
         setSpeed(0f)
         setMotionAngle(180f)
-        setSize(8f, 5f)
         setBoundaryRectangle()
     }
 
@@ -25,7 +22,17 @@ class Pile(x: Float, y: Float, s: Stage) : BaseActor(x, y, s) {
         if (x + width < 0) {
             moveBy(100f + width + MathUtils.random(-5f, 5f), 0f)
             y = MathUtils.random(15f, 19f)
+            setImage()
             setSize(8f, MathUtils.random(7f, 18f))
         }
+    }
+
+    private fun setImage() {
+        when (MathUtils.random(1, 3)) {
+            1 -> loadImage("pile")
+            2 -> loadImage("newspile")
+            3 -> loadImage("pile2")
+        }
+        setSize(8f, 5f)
     }
 }

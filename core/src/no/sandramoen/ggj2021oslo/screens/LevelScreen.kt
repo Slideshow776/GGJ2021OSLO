@@ -2,6 +2,7 @@ package no.sandramoen.ggj2021oslo.screens
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
+import com.badlogic.gdx.math.MathUtils
 import com.badlogic.gdx.scenes.scene2d.ui.Label
 import com.badlogic.gdx.scenes.scene2d.ui.Table
 import no.sandramoen.ggj2021oslo.actors.*
@@ -15,15 +16,18 @@ class LevelScreen : BaseScreen() {
     private lateinit var player: Player
     private lateinit var bed: Bed
     private lateinit var computer: Computer
+    private lateinit var cat: Cat
 
     private lateinit var ground1: Ground
     private lateinit var ground2: Ground
+    private lateinit var groundBackup: Ground
 
     private lateinit var pile1: Pile
     private lateinit var pile2: Pile
 
     private var gameStarted = false
     private var gameOver = false
+    private var gameOverTime = 0f
     private var gameTime = 0f
     private var itemToCreate = "sock"
 
@@ -43,9 +47,11 @@ class LevelScreen : BaseScreen() {
         // actors
         ground1 = Ground(0f, 0f, mainStage)
         ground2 = Ground(100f, 0f, mainStage)
+        groundBackup = Ground(50f, 0f, mainStage)
 
         pile1 = Pile(100f, 18f, mainStage)
         pile2 = Pile(170f, 18f, mainStage)
+        cat = Cat(150f, 95f, mainStage)
 
         bed = Bed(0f, 18f, mainStage)
         computer = Computer(18f, 17f, mainStage)
@@ -74,13 +80,23 @@ class LevelScreen : BaseScreen() {
     }
 
     override fun update(dt: Float) {
-        // println(ground1.getSpeed())
+        if (gameOver && gameOverTime < 5f) gameOverTime += dt
 
         if (gameStarted && !gameOver) gameTime += dt
         scoreLabel.setText("${score()}")
 
+        // actors
         for (pile: BaseActor in BaseActor.getList(mainStage, Pile::class.java.canonicalName)) {
             if (player.overlaps(pile)) gameOver()
+        }
+
+        cat.act(dt, player)
+        if (player.overlaps(cat) && !gameOver) {
+            when(MathUtils.random(1, 2)) {
+                1-> BaseGame.catAngry1Sound!!.play(BaseGame.soundVolume)
+                2-> BaseGame.catAngry2Sound!!.play(BaseGame.soundVolume)
+            }
+            gameOver()
         }
 
         for (item: BaseActor in BaseActor.getList(mainStage, PickUpItem::class.java.canonicalName)) {
@@ -90,10 +106,12 @@ class LevelScreen : BaseScreen() {
                 temp.remove()
                 if (player.clothing == "sock") itemToCreate = "shirt"
                 else if (player.clothing == "shirt") itemToCreate = "tie"
+                else if (player.clothing == "tie") itemToCreate = "coffee"
             }
         }
 
-        when { // scaling difficulty
+        // scaling difficulty
+        when {
             gameTime > 80f -> if (!gameOver) setActorSpeed(90f)
             gameTime > 70f -> if (!gameOver) setActorSpeed(80f)
             gameTime > 60f -> if (!gameOver) setActorSpeed(70f)
@@ -114,12 +132,12 @@ class LevelScreen : BaseScreen() {
             if (!gameStarted) {
                 startGame()
                 return true
-            } else if (gameOver) {
+            } else if (gameOver && gameOverTime > .5f) { // added a small delay
                 println("loading new level")
                 BaseGame.setActiveScreen(LevelScreen())
             }
 
-            player.jump()
+            if (!gameOver) player.jump()
         } else if (keyCode == Input.Keys.ESCAPE)
             Gdx.app.exit()
         return true
@@ -132,8 +150,10 @@ class LevelScreen : BaseScreen() {
         player.moving = false
         ground1.moving = false
         ground2.moving = false
+        groundBackup.moving = false
         pile1.moving = false
         pile2.moving = false
+        cat.moving = false
         BaseGame.socksFast1Music!!.stop()
         BaseGame.feetFast1Music!!.stop()
         BaseGame.tiptapFeetMusic!!.stop()
@@ -143,6 +163,7 @@ class LevelScreen : BaseScreen() {
         GameUtils.saveGameState()
         setActorSpeed(0f)
         player.moving = false
+        player.gameOver()
         computer.fadeInAndSounds()
     }
 
@@ -154,6 +175,11 @@ class LevelScreen : BaseScreen() {
         for (pile: BaseActor in BaseActor.getList(mainStage, Pile::class.java.canonicalName))
             pile.setSpeed(BaseGame.speed)
 
+        if (gameTime > 30f) {
+            cat.setSpeed(-BaseGame.speed)
+            cat.active()
+        }
+
         for (item: BaseActor in BaseActor.getList(mainStage, PickUpItem::class.java.canonicalName))
             item.setSpeed(BaseGame.speed)
 
@@ -163,36 +189,31 @@ class LevelScreen : BaseScreen() {
     private fun startGame() {
         println("starting the game!")
         gameOver = false
-        gameStarted = true/*
-        ground1.setSpeed(-BaseGame.speed)
-        ground2.setSpeed(-BaseGame.speed)
-        pile1.setSpeed(-BaseGame.speed)
-        pile2.setSpeed(-BaseGame.speed)*/
+        gameStarted = true
         setActorSpeed(-BaseGame.speed)
-        /*player.moving = true
-        ground1.moving = true
-        ground2.moving = true
-        pile1.moving = true
-        pile2.moving = true*/
-        // bed.setSpeed(BaseGame.speed)
         player.jump(125f)
-        /*player.moving = true*/
     }
 
     private fun createClothes() {
-        if (itemToCreate == "tie" && gameTime > 30f && player.clothing == "shirt") {
+        var yPos = 30f
+        if (itemToCreate == "coffee" && gameTime > 30f && player.clothing == "tie") {
             if (BaseActor.count(mainStage, PickUpItem::class.java.canonicalName) == 0) {
-                PickUpItem(110f, 18f, mainStage, itemToCreate)
+                PickUpItem(110f, yPos, mainStage, itemToCreate)
+                println("created a $itemToCreate!")
+            }
+        } else if (itemToCreate == "tie" && gameTime > 30f && player.clothing == "shirt") {
+            if (BaseActor.count(mainStage, PickUpItem::class.java.canonicalName) == 0) {
+                PickUpItem(110f, yPos, mainStage, itemToCreate)
                 println("created a $itemToCreate!")
             }
         } else if (itemToCreate == "shirt" && gameTime > 20f && player.clothing == "sock") {
             if (BaseActor.count(mainStage, PickUpItem::class.java.canonicalName) == 0) {
-                PickUpItem(110f, 18f, mainStage, itemToCreate)
+                PickUpItem(110f, yPos, mainStage, itemToCreate)
                 println("created a $itemToCreate!")
             }
         } else if (itemToCreate == "sock" && gameTime > 10f && player.clothing == "none") {
             if (BaseActor.count(mainStage, PickUpItem::class.java.canonicalName) == 0) {
-                PickUpItem(110f, 18f, mainStage, itemToCreate)
+                PickUpItem(110f, yPos, mainStage, itemToCreate)
                 println("created a $itemToCreate!")
             }
         }

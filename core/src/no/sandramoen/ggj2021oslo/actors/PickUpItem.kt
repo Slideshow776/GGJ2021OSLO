@@ -20,11 +20,11 @@ class PickUpItem(x: Float, y: Float, s: Stage, item: String) : BaseActor(x, y, s
 
     init {
         loadImage(item)
+        setSize(11f, 11f)
 
         // physics
         setSpeed(BaseGame.speed)
         setMotionAngle(180f)
-        setSize(10f, 10f)
         setBoundaryRectangle()
 
         // shaders

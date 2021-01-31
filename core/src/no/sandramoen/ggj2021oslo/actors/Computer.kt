@@ -22,17 +22,24 @@ class Computer(x: Float, y: Float, s: Stage) : BaseActor(x, y, s) {
 
             // sounds
             BaseGame.type1Sound!!.play(BaseGame.soundVolume)
+            BaseGame.babble1Sound!!.play(BaseGame.soundVolume)
             BaseGame.mouseClickSound!!.play(BaseGame.soundVolume)
             addAction(Actions.sequence(
                 Actions.delay(1.5f),
                 Actions.run {
                     BaseGame.mouseClickSound!!.play(BaseGame.soundVolume)
                     BaseGame.type2Sound!!.play(BaseGame.soundVolume)
+                    BaseGame.babble2Sound!!.play(BaseGame.soundVolume)
                 },
                 Actions.delay(1.5f),
                 Actions.run {
                     BaseGame.mouseClickSound!!.play(BaseGame.soundVolume)
                     BaseGame.type3Sound!!.play(BaseGame.soundVolume)
+                    BaseGame.babble3Sound!!.play(BaseGame.soundVolume)
+                },
+                Actions.delay(1.5f),
+                Actions.run {
+                    BaseGame.babble4Sound!!.play(BaseGame.soundVolume)
                 }
             ))
         }

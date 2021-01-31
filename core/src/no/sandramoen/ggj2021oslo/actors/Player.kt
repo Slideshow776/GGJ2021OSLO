@@ -17,6 +17,7 @@ class Player(x: Float, y: Float, s: Stage) : BaseActor(x, y, s) {
     private var isJumping = false
     private var itemCount = 0f
     var clothing = "none"
+    private var gameOver = false
 
     init {
         // animation
@@ -66,10 +67,10 @@ class Player(x: Float, y: Float, s: Stage) : BaseActor(x, y, s) {
             isJumping = true
             setSpeed(jumAmount)
             setMotionAngle(90f)
-            when(MathUtils.random(1, 3)) {
-                1-> BaseGame.jump1Sound!!.play(BaseGame.soundVolume)
-                2-> BaseGame.jump2Sound!!.play(BaseGame.soundVolume)
-                3-> BaseGame.jump3Sound!!.play(BaseGame.soundVolume)
+            when (MathUtils.random(1, 3)) {
+                1 -> BaseGame.jump1Sound!!.play(BaseGame.soundVolume)
+                2 -> BaseGame.jump2Sound!!.play(BaseGame.soundVolume)
+                3 -> BaseGame.jump3Sound!!.play(BaseGame.soundVolume)
             }
         }
     }
@@ -98,6 +99,28 @@ class Player(x: Float, y: Float, s: Stage) : BaseActor(x, y, s) {
             setSize(10f, 22f)
             BaseGame.gettingReadyRush2Sound!!.play(1f) // TODO: low volume audio
             clothing = "tie"
+        } else if (item == "coffee") {
+            var animationImages: Array<TextureAtlas.AtlasRegion> = Array()
+            for (i in 1..2) animationImages.add(BaseGame.textureAtlas!!.findRegion("player_coffee$i"))
+            setAnimation(Animation(.1f, animationImages, Animation.PlayMode.LOOP_PINGPONG))
+            setSize(10f, 22f)
+            BaseGame.coffeeSound!!.play(1f) // TODO: low volume audio
+            clothing = "coffee"
+        }
+    }
+
+    fun gameOver() {
+        if (!gameOver) {
+            gameOver = true
+            println("current clothing: $clothing")
+            when (clothing) {
+                "none" -> loadImage("player1")
+                "sock" -> loadImage("player_sock1")
+                "shirt" -> loadImage("player_shirt2")
+                "tie" -> loadImage("player_tie1")
+                "coffee" -> loadImage("player_coffee2")
+            }
+            setSize(10f, 22f)
         }
     }
 

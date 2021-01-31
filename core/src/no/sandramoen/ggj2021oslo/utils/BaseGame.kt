@@ -54,6 +54,16 @@ abstract class BaseGame() : Game(), AssetErrorListener {
         var type1Sound: Sound? = null
         var type2Sound: Sound? = null
         var type3Sound: Sound? = null
+        var babble1Sound: Sound? = null
+        var babble2Sound: Sound? = null
+        var babble3Sound: Sound? = null
+        var babble4Sound: Sound? = null
+        var coffeeSound: Sound? = null
+        var catHappy1Sound: Sound? = null
+        var catHappy2Sound: Sound? = null
+        var catPurrSound: Sound? = null
+        var catAngry1Sound: Sound? = null
+        var catAngry2Sound: Sound? = null
         var feetFast1Music: Music? = null
         var socksFast1Music: Music? = null
         var tiptapFeetMusic: Music? = null
@@ -64,7 +74,7 @@ abstract class BaseGame() : Game(), AssetErrorListener {
         var highScore: Int = 0
         var speed = 30f
         var soundVolume = .5f
-        var musicVolume = 1f
+        var musicVolume = .8f
 
         fun setActiveScreen(s: BaseScreen) {
             game?.setScreen(s)
@@ -94,10 +104,20 @@ abstract class BaseGame() : Game(), AssetErrorListener {
         assetManager.load("audio/sound/Type_1.wav", Sound::class.java)
         assetManager.load("audio/sound/Type_2.wav", Sound::class.java)
         assetManager.load("audio/sound/Type_3.wav", Sound::class.java)
+        assetManager.load("audio/sound/Babble1.wav", Sound::class.java)
+        assetManager.load("audio/sound/Babble2.wav", Sound::class.java)
+        assetManager.load("audio/sound/Babble3.wav", Sound::class.java)
+        assetManager.load("audio/sound/Babble4.wav", Sound::class.java)
+        assetManager.load("audio/sound/Coffee_drink.wav", Sound::class.java)
+        assetManager.load("audio/sound/Angry2.wav", Sound::class.java)
+        assetManager.load("audio/sound/Angry1.wav", Sound::class.java)
+        assetManager.load("audio/sound/Happy2.wav", Sound::class.java)
+        assetManager.load("audio/sound/Happy1.wav", Sound::class.java)
+        assetManager.load("audio/sound/Purr.wav", Sound::class.java)
         assetManager.load("audio/sound/tiptap_feet_1.wav", Music::class.java)
         assetManager.load("audio/music/FeetFast1.wav", Music::class.java)
         assetManager.load("audio/music/SocksFast1.wav", Music::class.java)
-        assetManager.load("audio/music/Wheres_my_video_call_Music_test1.mp3", Music::class.java)
+        assetManager.load("audio/music/WheresMyVideoCallSeamlessLoop.wav", Music::class.java)
 
         assetManager.load("skins/default/uiskin.json", Skin::class.java)
 
@@ -126,10 +146,20 @@ abstract class BaseGame() : Game(), AssetErrorListener {
         type1Sound = assetManager.get("audio/sound/Type_1.wav", Sound::class.java)
         type2Sound = assetManager.get("audio/sound/Type_2.wav", Sound::class.java)
         type3Sound = assetManager.get("audio/sound/Type_3.wav", Sound::class.java)
+        babble1Sound = assetManager.get("audio/sound/Babble1.wav", Sound::class.java)
+        babble2Sound = assetManager.get("audio/sound/Babble2.wav", Sound::class.java)
+        babble3Sound = assetManager.get("audio/sound/Babble3.wav", Sound::class.java)
+        babble4Sound = assetManager.get("audio/sound/Babble4.wav", Sound::class.java)
+        coffeeSound = assetManager.get("audio/sound/Coffee_drink.wav", Sound::class.java)
+        catAngry2Sound = assetManager.get("audio/sound/Angry2.wav", Sound::class.java)
+        catAngry1Sound = assetManager.get("audio/sound/Angry1.wav", Sound::class.java)
+        catHappy2Sound = assetManager.get("audio/sound/Happy2.wav", Sound::class.java)
+        catHappy1Sound = assetManager.get("audio/sound/Happy1.wav", Sound::class.java)
+        catPurrSound = assetManager.get("audio/sound/Purr.wav", Sound::class.java)
         tiptapFeetMusic = assetManager.get("audio/sound/tiptap_feet_1.wav", Music::class.java)
         feetFast1Music = assetManager.get("audio/music/FeetFast1.wav", Music::class.java)
         socksFast1Music = assetManager.get("audio/music/SocksFast1.wav", Music::class.java)
-        levelMusic1 = assetManager.get("audio/music/Wheres_my_video_call_Music_test1.mp3", Music::class.java)
+        levelMusic1 = assetManager.get("audio/music/WheresMyVideoCallSeamlessLoop.wav", Music::class.java)
 
         // text files
         /*defaultShader = assetManager.get("shaders/default.vs", Text::class.java).getString()

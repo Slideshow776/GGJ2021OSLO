@@ -1,5 +1,7 @@
 ## Java
 
+/Project Assets/keystore.jks
+
 *.class
 *.war
 *.ear
