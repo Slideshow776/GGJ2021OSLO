@@ -42,6 +42,8 @@ abstract class BaseGame() : Game(), AssetErrorListener {
         var textButtonStyle: TextButtonStyle? = null
         var textureAtlas: TextureAtlas? = null
         var skin: Skin? = null
+        var defaultShader: String? = null
+        var glowShader: String? = null
         var alarm1Sound: Sound? = null
         var jump1Sound: Sound? = null
         var jump2Sound: Sound? = null
@@ -125,9 +127,8 @@ abstract class BaseGame() : Game(), AssetErrorListener {
         assetManager.setLoader(FreeTypeFontGenerator::class.java, FreeTypeFontGeneratorLoader(resolver))
         assetManager.setLoader(BitmapFont::class.java, ".ttf", FreetypeFontLoader(resolver))
         assetManager.setLoader(Text::class.java, TextLoader(InternalFileHandleResolver()))
-/*
         assetManager.load(AssetDescriptor("shaders/default.vs", Text::class.java, TextLoader.TextParameter()))
-        assetManager.load(AssetDescriptor("shaders/shockwave.fs", Text::class.java, TextLoader.TextParameter()))*/
+        assetManager.load(AssetDescriptor("shaders/glow-pulse.fs", Text::class.java, TextLoader.TextParameter()))
         assetManager.finishLoading()
 
         textureAtlas =
@@ -162,8 +163,8 @@ abstract class BaseGame() : Game(), AssetErrorListener {
         levelMusic1 = assetManager.get("audio/music/WheresMyVideoCallSeamlessLoop.wav", Music::class.java)
 
         // text files
-        /*defaultShader = assetManager.get("shaders/default.vs", Text::class.java).getString()
-        shockwaveShader = assetManager.get("shaders/shockwave.fs", Text::class.java).getString()*/
+        defaultShader = assetManager.get("shaders/default.vs", Text::class.java).getString()
+        glowShader = assetManager.get("shaders/glow-pulse.fs", Text::class.java).getString()
 
         // skins
         skin = Skin(Gdx.files.internal("skins/default/uiskin.json"))

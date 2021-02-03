@@ -29,8 +29,8 @@ class PickUpItem(x: Float, y: Float, s: Stage, item: String) : BaseActor(x, y, s
         setBoundaryRectangle()
 
         // shaders
-        vertexShader = Gdx.files.internal("shaders/default.vs").readString()
-        fragmentShader = Gdx.files.internal("shaders/glow-pulse.fs").readString()
+        vertexShader = BaseGame.defaultShader.toString()
+        fragmentShader = BaseGame.glowShader.toString()
         shaderProgram = ShaderProgram(vertexShader, fragmentShader) // hmm
 
         // to detect errors in GPU compilation
@@ -54,13 +54,15 @@ class PickUpItem(x: Float, y: Float, s: Stage, item: String) : BaseActor(x, y, s
     }
 
     override fun draw(batch: Batch, parentAlpha: Float) {
-        if (Gdx.app.type == Application.ApplicationType.Desktop) {
+        try {
             batch.shader = shaderProgram
             shaderProgram!!.setUniformf("u_time", time)
             shaderProgram!!.setUniformf("u_imageSize", Vector2(width, height))
             shaderProgram!!.setUniformi("u_glowRadius", 7)
+            super.draw(batch, parentAlpha)
+            batch.shader = null
+        } catch (error: Error) {
+            super.draw(batch, parentAlpha)
         }
-        super.draw(batch, parentAlpha)
-        batch.shader = null
     }
 }
