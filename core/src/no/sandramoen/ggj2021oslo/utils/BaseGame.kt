@@ -121,12 +121,13 @@ abstract class BaseGame() : Game(), AssetErrorListener {
         assetManager.load("audio/music/SocksFast1.wav", Music::class.java)
         assetManager.load("audio/music/WheresMyVideoCallSeamlessLoop.wav", Music::class.java)
 
-        assetManager.load("skins/default/uiskin.json", Skin::class.java)
+        // assetManager.load("skins/default/uiskin.json", Skin::class.java)
 
         val resolver = InternalFileHandleResolver()
         assetManager.setLoader(FreeTypeFontGenerator::class.java, FreeTypeFontGeneratorLoader(resolver))
         assetManager.setLoader(BitmapFont::class.java, ".ttf", FreetypeFontLoader(resolver))
         assetManager.setLoader(Text::class.java, TextLoader(InternalFileHandleResolver()))
+
         assetManager.load(AssetDescriptor("shaders/default.vs", Text::class.java, TextLoader.TextParameter()))
         assetManager.load(AssetDescriptor("shaders/glow-pulse.fs", Text::class.java, TextLoader.TextParameter()))
         assetManager.finishLoading()
@@ -167,7 +168,7 @@ abstract class BaseGame() : Game(), AssetErrorListener {
         glowShader = assetManager.get("shaders/glow-pulse.fs", Text::class.java).getString()
 
         // skins
-        skin = Skin(Gdx.files.internal("skins/default/uiskin.json"))
+        // skin = Skin(Gdx.files.internal("skins/default/uiskin.json"))
 
         // fonts
         FreeTypeFontGenerator.setMaxTextureSize(2048) // solves font bug that won't show some characters like "." and "," in android
@@ -215,12 +216,12 @@ abstract class BaseGame() : Game(), AssetErrorListener {
 
         assetManager.dispose()
         fontGenerator.dispose()
-        /*try { // TODO: uncomment this when development is done
+        try { // TODO: uncomment this when development is done
             assetManager.dispose()
             fontGenerator.dispose()
         } catch (error: UninitializedPropertyAccessException) {
             Gdx.app.error("BaseGame", "Error $error")
-        }*/
+        }
     }
 
     override fun error(asset: AssetDescriptor<*>, throwable: Throwable) {

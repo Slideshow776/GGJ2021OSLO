@@ -31,7 +31,7 @@ class PickUpItem(x: Float, y: Float, s: Stage, item: String) : BaseActor(x, y, s
         // shaders
         vertexShader = BaseGame.defaultShader.toString()
         fragmentShader = BaseGame.glowShader.toString()
-        shaderProgram = ShaderProgram(vertexShader, fragmentShader) // hmm
+        shaderProgram = ShaderProgram(vertexShader, fragmentShader)
 
         // to detect errors in GPU compilation
         if (!shaderProgram!!.isCompiled) println("Couldn't compile shader: " + shaderProgram!!.log)
