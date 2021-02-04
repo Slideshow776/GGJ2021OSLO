@@ -3,19 +3,19 @@
 ## To play on Andoid:
 * Go to Google Play store [here](https://play.google.com/store/apps/details?id=no.sandramoen.ggj2021oslo&hl=en&gl=US)!
 * Alternatively:
-  * Click `Where's My Video Call.apk`
-  * Download the file.
-  * Consent to any warnings about installing the app
-  * Install and play
+  1. Click `Where's My Video Call.apk`
+  2. Download the file.
+  3. Consent to any warnings about installing the app
+  4. Install and play
 
 ## To play on **Desktop**:
 [Java](https://www.java.com/ES/download/) must be installed on your device.
-* Click `Where's My Video Call.jar`
-* Click "Download"
-* Double click to run
+1. Click `Where's My Video Call.jar`
+2 Click "Download"
+3. Double click to run
    * Alternatively:
-      * Open a terminal (cmd)
-      * Navigate to the file `$cd [path]`
-      * Run `$java -jar "Where's My Video Call.jar"`
+      1. Open a terminal (cmd)
+      2. Navigate to the file `$cd [path]`
+      3. Run `$java -jar "Where's My Video Call.jar"`
 
 
